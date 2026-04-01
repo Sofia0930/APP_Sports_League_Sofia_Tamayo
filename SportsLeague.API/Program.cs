@@ -10,6 +10,11 @@ using SportsLeague.Domain.Interfaces.Services;
 
 using SportsLeague.Domain.Services;
 
+using SportsLeague.Domain.Interfaces.Repositories; // Add for sponsor interfaces
+using SportsLeague.DataAccess.Repositories; // Add for sponsor repo
+using SportsLeague.Domain.Interfaces.Services; // Add for sponsor service
+using SportsLeague.Domain.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +41,8 @@ builder.Services.AddScoped<IRefereeRepository, RefereeRepository>(); // NUEVO
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>(); // NUEVO
 
 builder.Services.AddScoped<ITournamentTeamRepository, TournamentTeamRepository>(); // NUEVO
+builder.Services.AddScoped<ISponsorRepository, SponsorRepository>();
+builder.Services.AddScoped<ITournamentSponsorRepository, TournamentSponsorRepository>();
 
 
 
@@ -48,6 +55,7 @@ builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IRefereeService, RefereeService>(); // NUEVO
 
 builder.Services.AddScoped<ITournamentService, TournamentService>(); // NUEVO
+builder.Services.AddScoped<ISponsorService, SponsorService>();
 
 
 // ── AutoMapper ──
@@ -59,38 +67,25 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddControllers();
 
-
 // ── Swagger ──
-
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddSwaggerGen();
 
-
+// ── Middleware Pipeline ──
 var app = builder.Build();
 
-
-// ── Middleware Pipeline ──
-
 if (app.Environment.IsDevelopment())
-
 {
-
     app.UseSwagger();
-
     app.UseSwaggerUI();
-
 }
 
-
 app.MapGet("/", () => Results.Redirect("/swagger"));
-
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();
