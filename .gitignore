@@ -1,0 +1,17 @@
+.vs/
+.vscode/
+bin/
+obj/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vsix
+*.db
+*.log
+*.nupkg
+.nuget/
+packages/
+*.vsidx

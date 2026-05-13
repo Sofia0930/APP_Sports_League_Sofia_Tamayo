@@ -10,6 +10,9 @@ using SportsLeague.Domain.Interfaces.Services;
 
 using SportsLeague.Domain.Services;
 
+// using AutoMapper;
+// using SportsLeague.API.Mappings;
+
 using SportsLeague.Domain.Interfaces.Repositories; // Add for sponsor interfaces
 using SportsLeague.DataAccess.Repositories; // Add for sponsor repo
 using SportsLeague.Domain.Interfaces.Services; // Add for sponsor service
@@ -57,6 +60,8 @@ builder.Services.AddScoped<IRefereeService, RefereeService>(); // NUEVO
 builder.Services.AddScoped<ITournamentService, TournamentService>(); // NUEVO
 builder.Services.AddScoped<ISponsorService, SponsorService>();
 
+
+// ── AutoMapper ──
 
 // ── AutoMapper ──
 
