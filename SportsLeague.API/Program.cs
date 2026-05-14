@@ -1,22 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-
 using SportsLeague.DataAccess.Context;
-
 using SportsLeague.DataAccess.Repositories;
-
 using SportsLeague.Domain.Interfaces.Repositories;
-
 using SportsLeague.Domain.Interfaces.Services;
-
 using SportsLeague.Domain.Services;
-
-// using AutoMapper;
-// using SportsLeague.API.Mappings;
-
-using SportsLeague.Domain.Interfaces.Repositories; // Add for sponsor interfaces
-using SportsLeague.DataAccess.Repositories; // Add for sponsor repo
-using SportsLeague.Domain.Interfaces.Services; // Add for sponsor service
-using SportsLeague.Domain.Services;
+using AutoMapper;
+using SportsLeague.API.Mappings;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +35,7 @@ builder.Services.AddScoped<ITournamentRepository, TournamentRepository>(); // NU
 builder.Services.AddScoped<ITournamentTeamRepository, TournamentTeamRepository>(); // NUEVO
 builder.Services.AddScoped<ISponsorRepository, SponsorRepository>();
 builder.Services.AddScoped<ITournamentSponsorRepository, TournamentSponsorRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
 
 
@@ -59,13 +49,12 @@ builder.Services.AddScoped<IRefereeService, RefereeService>(); // NUEVO
 
 builder.Services.AddScoped<ITournamentService, TournamentService>(); // NUEVO
 builder.Services.AddScoped<ISponsorService, SponsorService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
 
 
 // ── AutoMapper ──
-
-// ── AutoMapper ──
-
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
+// Registrar AutoMapper usando el ensamblado del MappingProfile
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 
 // ── Controllers ──
